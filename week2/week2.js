@@ -1,4 +1,4 @@
- === Task 1 ===
+ // === Task 1 ===
 const messages={
     "Bob":"I'm at Ximen MRT station.",
     "Mary":"I have a drink near Jingmei MRT station.",
@@ -61,7 +61,7 @@ function findAndPrint(messages, currentStation){
     console.log(closest_name)
 
 }
-     
+console.log("=== Task 1 ===") 
 findAndPrint(messages, "Wanlong"); // print Mary
 findAndPrint(messages, "Songshan"); // print Copper
 findAndPrint(messages, "Qizhang"); // print Leslie
