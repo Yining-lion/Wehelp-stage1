@@ -1,0 +1,211 @@
+/* *{
+    border: 1px solid black;
+
+} */
+
+html,body{
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.web-title{
+    width: 50%;
+    font-weight: bold;
+    margin-left: 15px;
+    
+}
+
+.menu{
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.item{
+    margin-right: 20px;
+}
+
+.burger{
+    display: none;
+    cursor: pointer;
+}
+
+.burger-menu{
+    display: none;
+}
+
+.welcome{
+    height: 250px;
+    background-color: #dcebf5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-text{
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.content{
+    width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    display: grid;
+    gap: 20px;
+    grid-template-areas: 
+    "promotion1 promotion1 promotion2 promotion2 promotion3 promotion3"
+    "title1     title1     title2     title3     title4     title5"
+    "title6     title6     title7     title8     title9     title10"
+    ;
+    grid-template-rows: 50px;
+}
+
+.promotion1, .promotion2, .promotion3{
+    display: flex;
+    background-color: #c8dce6;
+    align-items: center;
+}
+
+.promotion-photo{
+    width: 80px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.promotion1{ grid-area: promotion1; }
+.promotion2{ grid-area: promotion2; }
+.promotion3{ grid-area: promotion3; }
+
+.title{
+    background-image: url("./data/photo.jpg");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 200px;
+    position: relative;
+}
+
+.icon{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0.7;
+}
+
+.title-text{
+    background-color: rgba(255,255,255,0.8);
+    position: absolute;
+    bottom: -20px;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.title1{grid-area: title1;}
+.title2{grid-area: title2;}
+.title3{grid-area: title3;}
+.title4{grid-area: title4;}
+.title5{grid-area: title5;}
+.title6{grid-area: title6;}
+.title7{grid-area: title7;}
+.title8{grid-area: title8;}
+.title9{grid-area: title9;}
+.title10{grid-area: title10;}
+
+
+.btnLoadContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.btnLoad{
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+    cursor: pointer;
+    display: block;
+}
+
+@media (max-width: 1200px) {
+    .content{
+        width: 90%;
+        grid-template-areas: 
+        "promotion1 promotion1 promotion2 promotion2"
+        "promotion3 promotion3 promotion3 promotion3"
+        "title1     title2     title3     title4"
+        "title5     title6     title7     title8"
+        "title9     title9     title10     title10";
+        grid-template-rows: 50px 50px;
+    }
+}
+
+@media (max-width: 600px) {
+    .item{
+        display: none;
+    }
+
+    .burger{
+        display: block;
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+
+    .burger-menu{
+        overflow: hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50%;
+        height: 0;
+        z-index: 1;
+        box-shadow: -3px 0 5px rgba(0,0,0,0.5);
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cross{
+        position: absolute;
+        right: 5px;
+        top: 10px;
+        cursor: pointer;
+    }
+
+    .burger-item{
+        margin: 15px 0;
+    }
+
+    .content{
+        width: 90%;
+        grid-template-areas: 
+        "promotion1"
+        "promotion2"
+        "promotion3"
+        "title1"
+        "title2"
+        "title3"
+        "title4"
+        "title5"
+        "title6"
+        "title7"
+        "title8"
+        "title9"
+        "title10";
+        grid-template-rows: 50px 50px 50px;
+    }
+}
