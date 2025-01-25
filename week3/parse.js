@@ -106,7 +106,11 @@ function updateGrid(){
     
         const title_rows = [];
         for(let i=0; i<title_num_list.length; i+=6){
-            title_rows.push(title_num_list.slice(i, i+6))
+            const row = title_num_list.slice(i, i+6)
+            while (row.length < 6) {
+                row.push(".");
+            }
+            title_rows.push(row);
         }
         let gridTemplate = `"promotion1 promotion1 promotion2 promotion2 promotion3 promotion3"\n`;
         title_rows.forEach(title_row => {
@@ -127,7 +131,11 @@ function updateGrid(){
     
         const title_rows = [];
         for(let i=0; i<title_num_list.length; i+=4){
-            title_rows.push(title_num_list.slice(i, i+4))
+            const row = title_num_list.slice(i, i+4)
+            while (row.length < 4) {
+                row.push(".");
+            }
+            title_rows.push(row);
         }
         let gridTemplate = `"promotion1 promotion1 promotion2 promotion2"\n 
                             "promotion3 promotion3 promotion3 promotion3"\n`;
