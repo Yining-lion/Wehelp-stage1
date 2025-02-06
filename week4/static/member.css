@@ -1,0 +1,23 @@
+/* *{
+    border: 1px solid black;
+} */
+
+html,body{
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.signin{
+    position: relative;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.title1{
+    text-align: center;
+    background-color: 	#003060;
+    color: white;
+    margin: 0;
+    padding: 20px 0;
+}

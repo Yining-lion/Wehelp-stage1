@@ -1,0 +1,53 @@
+/* *{
+    border: 1px solid black;
+} */
+
+html,body{
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.signin{
+    position: relative;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.title1{
+    text-align: center;
+    background-color: 	#003060;
+    color: white;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.username, .password, .agree{
+    margin: 5px 0;
+}
+
+.username, .password, .square{
+    padding: 3px;
+}
+
+.agree{
+    cursor: pointer;
+}
+
+.btn{
+    margin: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.squareForm{
+    position: relative;
+    text-align: center;
+    margin-top: 50px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
