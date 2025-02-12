@@ -4,7 +4,7 @@
 ```sql
 mysql > CREATE DATABASE website;
 ```
-![](/task2/)
+![GitHub](/task2/)
 
 **2. Create a new table named member, in the website database.**
 ```sql
