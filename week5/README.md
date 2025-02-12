@@ -4,7 +4,7 @@
 ```sql
 mysql > CREATE DATABASE website;
 ```
-![](/task2/)
+![](https://github.com/Yining-lion/Wehelp-stage1/blob/5d998746d13a8a12ad1538a34375bbb289c417c0/week5/task2/2-1.jpg)
 
 **2. Create a new table named member, in the website database.**
 ```sql
