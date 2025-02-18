@@ -1,0 +1,104 @@
+from fastapi import FastAPI, Request, Form, Query
+from typing import Annotated
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from starlette.middleware.sessions import SessionMiddleware
+import secrets
+import mysql.connector
+
+con = mysql.connector.connect(
+    user = "root",
+    password = "1234",
+    host = "localhost",
+    database = "website"
+)
+cursor = con.cursor()
+
+app = FastAPI()
+
+app.add_middleware(SessionMiddleware, secret_key=secrets.token_hex(32)) # 設定 SessionMiddleware
+
+templates = Jinja2Templates(directory="templates") # 設定模板
+
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request): # Jinja2Templates 需要 request 參數
+    return templates.TemplateResponse( request=request,  name="index.html")
+
+@app.post("/signup", response_class=RedirectResponse)
+async def signup(
+    request: Request,
+    name: Annotated[str, Form()],
+    username: Annotated[str, Form()],
+    password: Annotated[str, Form()],
+):
+    cursor.execute("SELECT username FROM member WHERE username = %s", (username, ))
+    dbUserName = cursor.fetchone() # 若查詢不到符合條件的資料，會回傳 None
+    if dbUserName:
+        return RedirectResponse(url="/error?message=帳號已被註冊過", status_code=303)
+    cursor.execute("INSERT INTO member(name, username, password) VALUES(%s, %s, %s)", (name, username, password))
+    con.commit()
+    return RedirectResponse(url="/", status_code=303)
+
+@app.post("/signin", response_class=RedirectResponse)
+async def signin(
+    request: Request,
+    username: Annotated[str, Form()],
+    password: Annotated[str, Form()], 
+):
+    cursor.execute("SELECT id, name, username, password FROM member WHERE username = %s", (username, ))
+    dbUser = cursor.fetchone() # 若查詢不到符合條件的資料，會回傳 None
+    if dbUser and password == dbUser[3]:
+        request.session["SIGNED-IN"] = True
+        request.session["ID"] = dbUser[0]
+        request.session["NAME"] = dbUser[1]
+        request.session["USERNAME"] = dbUser[2]
+        return RedirectResponse(url="/member", status_code=303)
+    return RedirectResponse(url="/error?message=帳號或密碼輸入錯誤", status_code=303)
+
+@app.get("/signout", response_class=RedirectResponse)
+async def signout(request: Request):
+    request.session.clear()
+    return RedirectResponse(url="/", status_code=303)
+
+@app.get("/member", response_class=HTMLResponse)
+async def member(request: Request):
+    if request.session.get("SIGNED-IN") == True:
+        name = request.session.get("NAME")
+        member_id = request.session.get("ID")
+        cursor.execute("""
+                       SELECT name, content, member_id, message.id FROM message 
+                       INNER JOIN member ON member.id=message.member_id 
+                       ORDER BY message.time DESC
+                       """)
+        dbMessages = cursor.fetchall()
+        messages = [{"dbName": dbName, "dbContent": dbContent, "is_me": (db_member_id == member_id), "msg_id": msg_id} 
+                    for dbName, dbContent, db_member_id, msg_id in dbMessages] 
+        # [{'dbName': 'a', 'dbContent': '哈囉', 'is_me': True}, {'dbName': 'd', 'dbContent': '你好 d', 'is_me': False}, ...]
+        return templates.TemplateResponse(request=request, name="member.html", context={"name": name, "messages": messages})
+    return RedirectResponse(url="/", status_code=303)
+
+@app.post("/createMessage", response_class=RedirectResponse)
+async def createMessage(
+    request: Request,
+    content: Annotated[str, Form()]
+):
+    member_id = request.session.get("ID")
+    cursor.execute("INSERT INTO message(member_id, content) VALUES(%s, %s)", (member_id, content))
+    con.commit()
+    return RedirectResponse(url="/member", status_code=303)
+
+@app.post("/deleteMessage", response_class=RedirectResponse)
+async def deleteMessage(
+    request: Request,
+    msg_id: Annotated[int, Form()]
+):
+    cursor.execute("DELETE FROM message WHERE id = %s", (msg_id, ))
+    con.commit()
+    return RedirectResponse(url="/member", status_code=303)
+
+@app.get("/error", response_class=HTMLResponse)
+async def error(request: Request, message: Annotated[str, Query()]):
+    return templates.TemplateResponse(request=request, name="error.html", context={"message": message})
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
