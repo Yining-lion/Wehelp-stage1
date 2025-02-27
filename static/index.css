@@ -1,0 +1,45 @@
+/* *{
+    border: 1px solid black;
+} */
+
+html,body{
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.title1{
+    text-align: center;
+    background-color: 	#003060;
+    color: white;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.signup{
+    position: relative;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.signin{
+    position: relative;
+    text-align: center;
+    margin-top: 30px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.title2{
+    margin-bottom: 5px;
+}
+
+.username, .password, .name{
+    margin: 5px 0;
+    padding: 3px;
+}
+
+.btn{
+    margin: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
