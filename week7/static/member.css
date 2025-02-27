@@ -1,0 +1,72 @@
+/* *{
+    border: 1px solid black;
+} */
+
+html,body{
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.signin{
+    position: relative;
+    text-align: center;
+    margin: 30px;
+}
+
+.title1{
+    text-align: center;
+    background-color: 	#003060;
+    color: white;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.leaveMessage, .messageContainer, .searchMemberContainer, .updateNameContainer{
+    position: relative;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.title2{
+    margin-bottom: 5px;
+}
+
+.content, .search, .update{
+    margin: 5px 0;
+    padding: 4px;
+}
+
+.search, .update{
+    width: 120px;
+}
+
+.btn{
+    margin: 15px 5px;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+.message{
+    padding: 5px;
+}
+
+.dbName{
+    font-weight: bold;
+}
+
+.btnDelete{
+    cursor: pointer;
+    margin-left: 3px;
+}
+
+.dbName, .dbContent, #deleteMsgForm{
+    display: inline
+}
+
+#searchMember, #updateName{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
